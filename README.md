@@ -2,7 +2,7 @@ Buikem's Weather Station App
 
 A weather app that shows the current conditions for any location, along with a 48-hour temperature trace covering the previous and next 24 hours. Built as a solution to the roadmap.sh Weather App project.
 
-Rather than a generic forecast card, the app is styled like a weather instrument panel — a dark, brass-and-glow color scheme with an oscilloscope-style line chart as its centerpiece.
+Rather than a generic forecast card, the app is styled like a weather instrument panel, a dark, brass-and-glow color scheme with an oscilloscope-style line chart as its centerpiece.
 
 Features
 Search for weather by city, zip/postal code, or place name
@@ -25,18 +25,20 @@ Getting started
    npm install
 2. Get a free API key
 
-Sign up at visualcrossing.com/weather-api — the free tier is enough to run this app.
+Sign up at visualcrossing.com/weather-api, the free tier is enough to run this app.
 
 3. Add your key
 
-Copy .env.example to a new file named .env:
+Copy api key to a file named .env:
 
 bash
-cp .env.example .env
+cp .env
 
 Then open .env and paste your key in:
 
-VITE_VISUAL_CROSSING_KEY=your_api_key_here 4. Run the app
+VITE_VISUAL_CROSSING_KEY=your_api_key_here 
+
+4. Run the app
 bash
 npm run dev
 
@@ -47,9 +49,9 @@ Open the URL Vite prints in the terminal (usually http://localhost:5173).
    npm run build
    npm run preview # serves the production build locally, to test it
    Project structure
-   index.html Page shell — mounts the React app into #root
-   src/main.jsx Entry point — renders <App /> into the page
-   src/App.jsx Top-level component — holds app state and data fetching
+   index.html Page shell mounts the React app into #root
+   src/main.jsx Entry point renders <App /> into the page
+   src/App.jsx Top-level component holds app state and data fetching
    src/components/Rail.jsx Search bar, locate button, refresh button
    src/components/Hero.jsx Current conditions display
    src/components/TraceChart.jsx 48-hour temperature trace chart
@@ -60,7 +62,7 @@ Open the URL Vite prints in the terminal (usually http://localhost:5173).
    src/style.css All styling, including responsive breakpoints
    Notes
    Temperatures are in °C and wind speed in km/h. Change unitGroup=metric to unitGroup=us in src/weather.js for imperial units.
-   The app requests a 3-day weather window (yesterday through tomorrow) and slices out the ±24 hours around the current time on the client side, so the trace stays accurate no matter what time of day the app is loaded.
+   The app requests a 3-day weather window (yesterday through tomorrow) and slices out the ±24 hours around the current time on the client side, so the trace stays      accurate no matter what time of day the app is loaded.
    Credit
-   Project brief: roadmap.sh — Weather App
+   Project brief: roadmap.sh-Weather App
    Weather data: Visual Crossing Weather API

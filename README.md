@@ -1,4 +1,4 @@
-Buikem's — Weather Station App
+Buikem's Weather Station App
 
 A weather app that shows the current conditions for any location, along with a 48-hour temperature trace covering the previous and next 24 hours. Built as a solution to the roadmap.sh Weather App project.
 

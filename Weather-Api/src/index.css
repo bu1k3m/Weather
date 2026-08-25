@@ -1,0 +1,630 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  /* Color: an instrument panel, not a postcard */
+  --ink: #12151c;
+  --panel: #1a1f2c;
+  --panel-raised: #212739;
+  --hairline: #2c3345;
+  --paper: #ede6d6;
+  --paper-dim: #b9b2a0;
+  --brass: #c9a66b;
+  --brass-dim: #8a774f;
+  --glow: #7fd8c9;
+  --alert: #e4572e;
+  --muted: #8b93a7;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+}
+
+body {
+  background-image:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(201, 166, 107, 0.08),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 100%,
+      rgba(127, 216, 201, 0.06),
+      transparent 50%
+    );
+  display: flex;
+  justify-content: center;
+}
+
+/* Centering lives on body itself so it works no matter what the root
+   wrapper div is called (#app in the vanilla version, #root in React). */
+#app,
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 48px);
+}
+
+.station {
+  width: 100%;
+  max-width: 880px;
+}
+
+@media (min-width: 1200px) {
+  .station {
+    max-width: 960px;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Rail ---------- */
+.rail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+}
+
+.rail-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--brass);
+  flex-shrink: 0;
+}
+.rail-mark {
+  display: inline-flex;
+}
+.rail-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+
+.rail-search {
+  display: flex;
+  gap: 8px;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.rail-search input {
+  flex: 1;
+  min-width: 0;
+  background: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 9px;
+  padding: 10px 12px;
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+.rail-search input::placeholder {
+  color: var(--muted);
+}
+.rail-search input:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 2px;
+}
+
+.rail-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9px;
+  border: 1px solid var(--hairline);
+  background: var(--panel-raised);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    transform 0.1s ease,
+    background 0.15s ease;
+}
+.btn:hover {
+  border-color: var(--brass-dim);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--brass);
+  color: #1a1508;
+  border-color: var(--brass);
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: #d6b57c;
+}
+.btn-ghost {
+  background: transparent;
+}
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+@media (max-width: 480px) {
+  .btn-label {
+    display: none;
+  }
+}
+
+/* ---------- Status ---------- */
+.status {
+  min-height: 20px;
+  margin: 12px 4px 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.status[data-tone="error"] {
+  color: var(--alert);
+}
+.status[data-tone="ok"] {
+  color: var(--glow);
+}
+
+/* ---------- Readout ---------- */
+.readout {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: rise 0.5s ease both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hero-place h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(20px, 3vw, 26px);
+  letter-spacing: 0.01em;
+}
+.hero-time {
+  margin: 4px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.hero-glyph {
+  color: var(--brass);
+  flex-shrink: 0;
+}
+.hero-glyph svg {
+  display: block;
+}
+
+.hero-temp-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.hero-temp {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(56px, 10vw, 84px);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.hero-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 10px;
+  font-size: 14.5px;
+}
+#hero-condition {
+  color: var(--paper);
+  font-weight: 500;
+}
+.hero-feels {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+.hero-feels b {
+  color: var(--paper-dim);
+  font-weight: 500;
+}
+
+.dial-grid {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  border-top: 1px dashed var(--hairline);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.dial dt {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.dial dd {
+  margin: 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--paper);
+}
+
+@media (max-width: 560px) {
+  .dial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Trace (signature element) ---------- */
+.trace-section {
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: clamp(18px, 3vw, 26px);
+}
+
+.trace-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-bottom: 14px;
+}
+.trace-heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+}
+.trace-heading p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.glow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 8px var(--glow);
+  display: inline-block;
+}
+
+.trace-wrap {
+  position: relative;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    transparent 60%
+  );
+}
+
+#trace-svg {
+  width: 100%;
+  min-width: 720px;
+  height: 200px;
+  display: block;
+}
+
+.trace-path-past {
+  fill: none;
+  stroke: var(--paper-dim);
+  stroke-width: 2;
+}
+.trace-path-future {
+  fill: none;
+  stroke: var(--brass);
+  stroke-width: 2;
+}
+.trace-now-line {
+  stroke: var(--glow);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 4;
+}
+.trace-grid-line {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+.trace-fill-past {
+  fill: url(#gradPast);
+  opacity: 0.5;
+}
+.trace-fill-future {
+  fill: url(#gradFuture);
+  opacity: 0.5;
+}
+
+.trace-point {
+  fill: var(--ink);
+  stroke: var(--paper-dim);
+  stroke-width: 1.6;
+}
+.trace-point.future {
+  stroke: var(--brass);
+}
+.trace-point.now {
+  fill: var(--glow);
+  stroke: var(--glow);
+  filter: drop-shadow(0 0 5px var(--glow));
+}
+
+.trace-hour-label,
+.trace-temp-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  fill: var(--muted);
+}
+.trace-temp-label.now {
+  fill: var(--glow);
+  font-weight: 600;
+}
+
+.trace-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.trace-tip {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  background: var(--panel-raised);
+  border: 1px solid var(--brass-dim);
+  border-radius: 8px;
+  padding: 6px 9px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  z-index: 3;
+}
+.trace-tip.visible {
+  opacity: 1;
+}
+
+.trace-legend {
+  display: flex;
+  gap: 18px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+}
+.trace-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lg {
+  width: 14px;
+  height: 2px;
+  display: inline-block;
+  border-radius: 1px;
+}
+.lg-past {
+  background: var(--paper-dim);
+}
+.lg-future {
+  background: var(--brass);
+}
+.lg-now {
+  background: var(--glow);
+  box-shadow: 0 0 6px var(--glow);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ---------- Footer ---------- */
+.foot {
+  margin-top: 18px;
+  text-align: center;
+}
+.foot p {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+/* ---------- Loading skeleton ---------- */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--panel-raised) 25%,
+    var(--hairline) 37%,
+    var(--panel-raised) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 8px;
+  color: transparent !important;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* ==========================================================
+   Responsive rules, smallest screen to largest.
+   Each block only adjusts spacing/sizing — no colors, fonts,
+   or structural classes are touched, so the existing look
+   carries through at every size.
+   ========================================================== */
+
+/* Small phones, e.g. iPhone SE (~375px and down) */
+@media (max-width: 400px) {
+  #app,
+  #root {
+    padding: 12px;
+  }
+  .rail {
+    padding: 12px;
+    gap: 10px;
+  }
+  .rail-title {
+    font-size: 15px;
+  }
+  .hero-temp {
+    font-size: 48px;
+  }
+  .dial-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .trace-legend {
+    gap: 10px;
+    font-size: 11px;
+  }
+}
+
+/* Phones in general (~401px to 600px) */
+@media (min-width: 401px) and (max-width: 600px) {
+  .hero-temp {
+    font-size: 60px;
+  }
+  .dial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small/medium tablets (~601px to 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+  .rail {
+    flex-wrap: wrap;
+  }
+  .rail-search {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .dial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large tablets / small laptops (~769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .station {
+    max-width: 720px;
+  }
+}
+
+/* Large desktop screens (1200px and up) */
+@media (min-width: 1200px) {
+  .hero-temp {
+    font-size: 92px;
+  }
+  .rail-title {
+    font-size: 18px;
+  }
+}
+
+/* Very large / wide monitors (1600px and up) */
+@media (min-width: 1600px) {
+  .station {
+    max-width: 1080px;
+  }
+}
+
+/* Short screens (landscape phones, small laptops) — keep the
+   hero from forcing a scroll before the trace chart is visible */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-temp {
+    font-size: 44px;
+  }
+  .dial-grid {
+    margin-top: 12px;
+    padding-top: 12px;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .readout,
+  .skeleton,
+  * {
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -7,11 +7,11 @@ Rather than a generic forecast card, the app is styled like a weather instrument
 Features
 Search for weather by city, zip/postal code, or place name
 Displays current temperature, "feels like" temperature, condition (e.g. Sunny, Cloudy, Rain), wind speed, chance of rain, humidity, and UV index
-Shows the previous 24 hours and next 24 hours of temperature on an interactive trace chart, with a marker for the current hour — hover or tap any point for that hour's exact reading
+Shows the previous 24 hours and next 24 hours of temperature on an interactive trace chart, with a marker for the current hour hover or tap any point for that hour's exact reading
 One-tap refresh of the current location's weather
 Defaults to the user's current location on first load (via browser geolocation), falling back to manual search if location access is denied
 Responsive layout, tuned for phones, tablets, laptops, and large monitors
-Fully keyboard accessible, with visible focus states and support for prefers-reduced-motion
+Fully keyboard accessible, with visible focus states and support for prefers reduced motion
 Tech stack
 React for the UI
 Vite for the dev server and build

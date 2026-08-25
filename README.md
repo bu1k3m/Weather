@@ -17,7 +17,7 @@ React for the UI
 Vite for the dev server and build
 Plain CSS (no framework) for styling
 Visual Crossing Weather API for weather data
-No charting library — the 48-hour trace is a hand-built SVG chart
+No charting library the 48-hour trace is a hand-built SVG chart
 Getting started
 
 1. Install dependencies

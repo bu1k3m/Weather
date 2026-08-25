@@ -64,5 +64,5 @@ Open the URL Vite prints in the terminal (usually http://localhost:5173).
    Temperatures are in °C and wind speed in km/h. Change unitGroup=metric to unitGroup=us in src/weather.js for imperial units.
    The app requests a 3-day weather window (yesterday through tomorrow) and slices out the ±24 hours around the current time on the client side, so the trace stays      accurate no matter what time of day the app is loaded.
    Credit
-   Project brief: roadmap.sh-Weather App
+   Project brief: https://roadmap.sh/projects/weather-app
    Weather data: Visual Crossing Weather API
